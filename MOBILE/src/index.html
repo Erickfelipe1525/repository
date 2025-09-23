@@ -5,9 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Relógio Motivacional</title>
 
- <!-- Manifest do PWA -->
+  <!-- PWA -->
   <link rel="manifest" href="manifest.json">
-  <link rel="theme-color" content="000000">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Relógio Digital com frases motivacionais e suporte offline.">
+
+  <!-- Ícones para iOS -->
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
@@ -31,11 +35,11 @@
 
     .container {
       background: rgba(255, 255, 255, 0.85);
-      padding: 30px 30px;
+      padding: 30px;
       border-radius: 13px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
       max-width: 500px;
-      width: 73%;
+      width: 80%;
       text-align: center;
       backdrop-filter: blur(8px);
     }
@@ -43,39 +47,16 @@
     .container p {
       margin: 15px 0;
       font-size: 1.2em;
-      color: #222;
     }
 
-    #titulo {
-      font-size: 2em;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    #frase {
-      font-style: italic;
-      color: #555;
-      min-height: 2.2em;
-    }
-
-    #diaSemana {
-      font-weight: 500;
-      margin-top: 20px;
-      color: #333;
-    }
+    #titulo { font-size: 2em; font-weight: 700; }
+    #frase { font-style: italic; color: #555; min-height: 2.2em; }
+    #diaSemana { font-weight: 500; margin-top: 20px; }
 
     @media (max-width: 768px) {
-      .container {
-        padding: 30px 20px;
-      }
-
-      .container p {
-        font-size: 1.4em;
-      }
-
-      #titulo {
-        font-size: 2.2em;
-      }
+      .container { padding: 20px; }
+      .container p { font-size: 1.1em; }
+      #titulo { font-size: 1.8em; }
     }
   </style>
 </head>
@@ -111,41 +92,41 @@
       let imagemFundo = "";
 
       if (hora >= 6 && hora < 12) {
-        corFundo = "#FFFACD"; // Amarelo claro
+        corFundo = "#FFFACD";
         mensagem = "Bom dia! ☀️";
         frasesAtuais = [
           "Comece o dia com gratidão e veja como tudo muda.",
           "A manhã é a chance de fazer tudo melhor.",
           "Você tem tudo que precisa para vencer hoje."
         ];
-        imagemFundo = "url('manha.jpg')";
+        imagemFundo = "url('assets/manha.jpg')";
       } else if (hora >= 12 && hora < 18) {
-        corFundo = "#FFDAB9"; // Pêssego
+        corFundo = "#FFDAB9";
         mensagem = "Boa tarde! ⛅";
         frasesAtuais = [
           "Continue firme, você está indo muito bem!",
           "Use a tarde para recomeçar com ainda mais foco.",
           "A cada minuto, uma nova oportunidade nasce."
         ];
-        imagemFundo = "url('tarde.jpg')";
+        imagemFundo = "url('assets/tarde.jpg')";
       } else if (hora >= 18 && hora < 23) {
-        corFundo = "#B0C4DE"; // Azul acinzentado
+        corFundo = "#B0C4DE";
         mensagem = "Boa noite! 🌔";
         frasesAtuais = [
           "Descanse a mente, alimente o coração com esperança.",
           "A noite é o momento de agradecer por tudo.",
           "Feche os olhos e confie: o amanhã será incrível."
         ];
-        imagemFundo = "url('noite.jpg')";
+        imagemFundo = "url('assets/noite.jpg')";
       } else {
-        corFundo = "#2F4F4F"; // Cinza escuro
+        corFundo = "#2F4F4F";
         mensagem = "Hora de descansar! 🌙";
         frasesAtuais = [
           "Silencie o mundo e ouça sua paz interior.",
           "No silêncio da madrugada, sonhos ganham forma.",
           "Durma leve. O universo está cuidando de tudo."
         ];
-        imagemFundo = "url('madrugada.jpg')";
+        imagemFundo = "url('assets/madrugada.jpg')";
       }
 
       document.body.style.backgroundColor = corFundo;
@@ -154,37 +135,27 @@
     }
 
     function mostrarHoraData(agora) {
-      const hora = agora.getHours();
+      const hora = agora.getHours().toString().padStart(2, "0");
       const minutos = agora.getMinutes().toString().padStart(2, "0");
       const segundos = agora.getSeconds().toString().padStart(2, "0");
       const opcoes = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       const dataFormatada = agora.toLocaleDateString("pt-BR", opcoes);
 
-      document.getElementById("hora").textContent = "Agora são " + hora + ":" + minutos + ":" + segundos;
+      document.getElementById("hora").textContent = `Agora são ${hora}:${minutos}:${segundos}`;
       document.getElementById("data").textContent = "📅 " + dataFormatada;
     }
 
     function mostrarDiaSemana(agora) {
-      const dia = agora.getDay();
-      let mensagemDia = "";
-
-      if (dia === 1) {
-        mensagemDia = "🚀 Segunda-feira: Comece forte. O mundo espera o seu melhor.";
-      } else if (dia === 2) {
-        mensagemDia = "🌱 Terça-feira: Plante boas atitudes e colha bons resultados.";
-      } else if (dia === 3) {
-        mensagemDia = "🧭 Quarta-feira: A metade do caminho já foi! Continue firme.";
-      } else if (dia === 4) {
-        mensagemDia = "🔥 Quinta-feira: Que seu dia seja produtivo e cheio de conquistas.";
-      } else if (dia === 5) {
-        mensagemDia = "🎉 Sexta-feira: Final de semana chegando! Termine a semana com orgulho.";
-      } else if (dia === 6) {
-        mensagemDia = "😎 Sábado: Descanse, divirta-se e cuide de você!";
-      } else if (dia === 0) {
-        mensagemDia = "🛌 Domingo: Renove suas energias e prepare-se para uma nova jornada.";
-      }
-
-      document.getElementById("diaSemana").textContent = mensagemDia;
+      const mensagens = [
+        "🛌 Domingo: Renove suas energias e prepare-se para uma nova jornada.",
+        "🚀 Segunda-feira: Comece forte. O mundo espera o seu melhor.",
+        "🌱 Terça-feira: Plante boas atitudes e colha bons resultados.",
+        "🧭 Quarta-feira: A metade do caminho já foi! Continue firme.",
+        "🔥 Quinta-feira: Que seu dia seja produtivo e cheio de conquistas.",
+        "🎉 Sexta-feira: Final de semana chegando! Termine a semana com orgulho.",
+        "😎 Sábado: Descanse, divirta-se e cuide de você!"
+      ];
+      document.getElementById("diaSemana").textContent = mensagens[agora.getDay()];
     }
 
     function mudarFrase() {
@@ -194,13 +165,13 @@
       }
     }
   </script>
-<script>
+
+  <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("service-worker.js")
-        .then(() => console.log("Service Worker registrado"))
-        .catch(err => console.log(" Erro no SW:", err));
+        .then(() => console.log("✅ Service Worker registrado"))
+        .catch(err => console.log("❌ Erro no SW:", err));
     }
   </script>
 </body>
 </html>
-
