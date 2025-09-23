@@ -2,14 +2,14 @@ self.addEventListener("install", event => {
   event.waitUntil(
     caches.open("Relogio-Motivacional-Digital-cache").then(cache => {
       return cache.addAll([
-        "index.html",
-        "manifest.json",
-        "icon-192.png",
-        "icon-512.png",
-        "manha.jpg",
-        "tarde.jpg",
-        "noite.jpg",
-        "madrugada.jpg"
+        "./index.html",
+        "./manifest.json",
+        "./icon-192.png",
+        "./icon-512.png",
+        "./manha.jpg",
+        "./tarde.jpg",
+        "./noite.jpg",
+        "./madrugada.jpg"
       ]);
     })
   );
